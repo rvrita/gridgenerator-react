@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -14,6 +15,7 @@ class App extends React.Component {
       gridtype: 'twoByFour',
       showTags: true,
       showBrand: true,
+      products: [],
       // products: [{
       //   skuId: 1234,
       //   imageLink: `<a href="[@trackurl LinkID='' LinkName='pmgdivinerosepalette' LinkTag='pl-p7' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P458276?skuId=2351542&$deep_link=true[/@trackurl]"  target="_blank">`,
@@ -36,16 +38,74 @@ class App extends React.Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.skuToLinkMap = {};
+  }
+
+  // sending get request to proxy
+  getData(sku, obj) {
+    return fetch(`/skus/${sku}`)
+      .then((response) => response.json())
+      // .then(data => { console.log(data); return data; })
+      .then((data) => {
+        let price;
+        if (data.listPrice.split('.')[1] === 50) {
+          price = data.listPrice;
+        } else {
+          price = data.listPrice.split('.')[0];
+        }
+        let tags = '';
+        if (data.isNew) {
+          tags += 'NEW. ';
+        } else if (data.isSephoraExclusive) {
+          tags += 'EXCLUSIVE. ';
+        } else if (data.isLimitedEdition) {
+          tags += 'LIMITED EDITION. ';
+        } else if (data.isOnlineOnly) {
+          tags += 'ONLINE ONLY.';
+        }
+        const item = {
+          skuId: data.skuId,
+          brandName: data.primaryProduct.brand.displayName.toUpperCase(),
+          productName: data.primaryProduct.displayName.replace(/[®™©]/g, ''),
+          tags,
+          price,
+          valuePrice: data.valuePrice ? `${data.valuePrice.split('.')[0]} value)` : '',
+          rating: data.primaryProduct.rating,
+          imageLink: obj[data.skuId],
+          textLink: obj[data.skuId].replace('>', ' style="text-decoration:none;color:#000000;">'),
+        };
+        return item;
+      })
+      .catch(() => {
+        const item = {
+          skuId: sku,
+          brandName: 'PLACEHOLDER BRAND NAME',
+          productName: 'Placeholder product name',
+          tags: 'PLACEHOLDER TAGS',
+          price: '$00',
+          valuePrice: '',
+          rating: 0,
+          imageLink: obj[sku],
+          textLink: obj[sku].replace('>', ' style="text-decoration:none;color:#000000;">'),
+        };
+        return item;
+      });
   }
 
   handleFormSubmit(event) {
     event.preventDefault();
+    const { textareaValue } = this.state;
     // get ids from links
-
+    const skus = this.parseSkus(textareaValue);
     // get data based on ids
-
+    const promises = skus.map((sku) => this.getData(sku, this.skuToLinkMap));
     // update state with data
-
+    Promise.all(promises)
+      .then((data) => {
+        this.setState({
+          products: data,
+        }, () => console.log(this.state));
+      });
     // render output
   }
 
@@ -57,8 +117,22 @@ class App extends React.Component {
     });
   }
 
+  parseSkus(links) {
+    this.skuToLinkMap = {};
+    const lines = links.split('\n');
+    const skus = lines.map((line, index) => {
+      const match = line.match(/skuId=([0-9]+)/);
+      if (match == null) return null;
+      this.skuToLinkMap[match[1]] = lines[index];
+      return match[1];
+    });
+    return skus;
+  }
+
   render() {
-    const { products, textareaValue, gridtype, showTags, showBrand } = this.state;
+    const {
+      products, textareaValue, gridtype, showTags, showBrand,
+    } = this.state;
     // const productsHtml = products1Up(products, true, false);
     return (
       <div>
