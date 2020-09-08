@@ -1,6 +1,5 @@
-export default function products1Up(products, showTags, showBrand) {
-  return `
-  <!-- grid gen -->
+export default function template1up(products, showTags, showBrand) {
+  return `<!-- grid gen -->
   <table width="700" border="0" cellspacing="0" cellpadding="0" align="center">
     <tr>
       <td style="padding-top: 50px;">
@@ -31,12 +30,11 @@ export default function products1Up(products, showTags, showBrand) {
                 <span style="color:#C0143C; letter-spacing:0.1em;line-height:45px;"><b>${tags}</b></span><br/>
                 ` : ''}
                 <span style="letter-spacing:0.01em; color:#000000;">
-                ${showBrand ? `<b>${brandName}</b><br/>` : ''}${productName}, ${price} ${valuePrice || ''} 
+                ${showBrand ? `<b>${brandName}</b><br/>` : ''}${productName}, ${price} ${valuePrice || ''}
                 </span>
               </a>
             </td>
-          </tr>
-        `);
+          </tr>`);
   })}
         </table>
       </td>

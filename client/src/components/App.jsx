@@ -1,11 +1,8 @@
-/* eslint-disable prefer-destructuring */
 /* eslint-disable class-methods-use-this */
-/* eslint-disable no-console */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable quotes */
-/* eslint-disable react/no-danger */
+/* eslint-disable prefer-destructuring */
 import React from 'react';
-// import products1Up from '../../../templates/products-1up';
+import template1up from '../../../templates/template1up';
+import template2x4 from '../../../templates/template2x4';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,29 +13,12 @@ class App extends React.Component {
       showTags: true,
       showBrand: true,
       products: [],
-      // products: [{
-      //   skuId: 1234,
-      //   imageLink: `<a href="[@trackurl LinkID='' LinkName='pmgdivinerosepalette' LinkTag='pl-p7' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P458276?skuId=2351542&$deep_link=true[/@trackurl]"  target="_blank">`,
-      //   productName: 'FOo',
-      //   textLink: `<a href="[@trackurl LinkID='' LinkName='dennisgrossdailypeel' LinkTag='pl-p4' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P269122?skuId=1499482&$deep_link=true[/@trackurl]"  target="_blank"`,
-      //   tags: 'HELLO WORLD',
-      //   brandName: 'FOOoo',
-      //   price: '$100',
-      //   valuePrice: '$120',
-      // }, {
-      //   skuId: 1234,
-      //   imageLink: `<a href="[@trackurl LinkID='' LinkName='pmgdivinerosepalette' LinkTag='pl-p7' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P458276?skuId=2351542&$deep_link=true[/@trackurl]"  target="_blank">`,
-      //   productName: 'Bsafasdf',
-      //   textLink: `<a href="[@trackurl LinkID='' LinkName='dennisgrossdailypeel' LinkTag='pl-p4' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P269122?skuId=1499482&$deep_link=true[/@trackurl]"  target="_blank"`,
-      //   tags: 'HELLO WORLD',
-      //   brandName: 'FOOoo',
-      //   price: '$100',
-      //   valuePrice: '$120',
-      // }],
+      activeTab: 'codeview',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.skuToLinkMap = {};
+    this.handleTabClick = this.handleTabClick.bind(this);
   }
 
   // sending get request to proxy
@@ -55,13 +35,13 @@ class App extends React.Component {
         }
         let tags = '';
         if (data.isNew) {
-          tags += 'NEW. ';
+          tags += 'NEW.';
         } else if (data.isSephoraExclusive) {
-          tags += 'EXCLUSIVE. ';
+          tags += ' EXCLUSIVE.';
         } else if (data.isLimitedEdition) {
-          tags += 'LIMITED EDITION. ';
+          tags += ' LIMITED EDITION.';
         } else if (data.isOnlineOnly) {
-          tags += 'ONLINE ONLY.';
+          tags += ' ONLINE ONLY.';
         }
         const item = {
           skuId: data.skuId,
@@ -92,6 +72,10 @@ class App extends React.Component {
       });
   }
 
+  handleTabClick(event) {
+    this.setState({ activeTab: event.target.value });
+  }
+
   handleFormSubmit(event) {
     event.preventDefault();
     const { textareaValue } = this.state;
@@ -104,9 +88,8 @@ class App extends React.Component {
       .then((data) => {
         this.setState({
           products: data,
-        }, () => console.log(this.state));
+        });
       });
-    // render output
   }
 
   handleInputChange(event) {
@@ -117,6 +100,7 @@ class App extends React.Component {
     });
   }
 
+  // getting the sku number from the url
   parseSkus(links) {
     this.skuToLinkMap = {};
     const lines = links.split('\n');
@@ -131,51 +115,85 @@ class App extends React.Component {
 
   render() {
     const {
-      products, textareaValue, gridtype, showTags, showBrand,
+      products, textareaValue, gridtype, showTags, showBrand, activeTab,
     } = this.state;
-    // const productsHtml = products1Up(products, true, false);
+    const productsHtml = products.length > 0
+      ? template1up(products, true, false).replace(/\n\s+\n/g, '\n')
+      : '';
     return (
       <div>
         <h1>Sephora Email Grid Generator</h1>
         <form onSubmit={this.handleFormSubmit}>
-          <div id="typePfGrid">
+          <div id="typeOfGrid">
             <label htmlFor="oneUp">
+              <br />
               1up grid
+              {' '}
               <input type="radio" id="oneUp" name="gridtype" value="oneUp" onChange={this.handleInputChange} checked={gridtype === 'oneUp'} />
             </label>
+            <br />
             <label htmlFor="twoByFour">
+              <br />
               2x4 grid
+              {' '}
               <input type="radio" id="twoByFour" name="gridtype" value="twoByFour" onChange={this.handleInputChange} checked={gridtype === 'twoByFour'} />
             </label>
           </div>
           <div>
             <label htmlFor="links">
+              <br />
               Paste your links here, one each line:
-              <textarea rows="20" cols="80" id="links" name="textareaValue" value={textareaValue} onChange={this.handleInputChange} />
+              {' '}
+              <br />
+              <br />
+              <textarea rows="20" cols="86" id="links" name="textareaValue" value={textareaValue} onChange={this.handleInputChange} />
             </label>
           </div>
           <div id="checkboxes">
             <label htmlFor="showTags">
+              <br />
               Show tags
+              {' '}
               <input type="checkbox" id="showTags" name="showTags" checked={showTags} onChange={this.handleInputChange} />
             </label>
             <label htmlFor="showBrand">
+              <br />
               Include Brand Name
+              {' '}
               <input type="checkbox" id="showBrand" name="showBrand" checked={showBrand} onChange={this.handleInputChange} />
             </label>
           </div>
-          <input type="submit" value="Submit" />
+          <br />
+          <input type="submit" value="Submit" id="submit" />
         </form>
+        <div id="codeWindow">
+          <div className="tab">
+            <button type="button" className="tablinks" value="codeview" onClick={this.handleTabClick}>Generated Code</button>
+            <button type="button" className="tablinks" value="preview" onClick={this.handleTabClick}>Preview</button>
+          </div>
+          <br />
+          {activeTab === 'codeview'
+            && <textarea id="codeview" className="tabcontent" rows="20" cols="86" defaultValue={productsHtml} />}
+          {activeTab === 'preview'
+            && <div id="preview" className="tabcontent" dangerouslySetInnerHTML={{ __html: productsHtml }} />}
+        </div>
+
+        <div>
+          <h3>Example links:</h3>
+          <textarea
+            id="links"
+            name="links"
+            rows="20"
+            cols="86"
+            defaultValue={`<a href="[@trackurl LinkID='' LinkName='dennisgrossdailypeel' LinkTag='pl-p4' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P269122?skuId=1499482&$deep_link=true[/@trackurl]" target="_blank">
+<a href="[@trackurl LinkID='' LinkName='carolinaherreraparfum' LinkTag='pl-p5' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P420533?skuId=1960707&$deep_link=true[/@trackurl]" target="_blank">
+<a href="[@trackurl LinkID='' LinkName='ctminilipsticklipliner' LinkTag='pl-p6' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P458268?skuId=2339620&$deep_link=true[/@trackurl]" target="_blank">
+<a href="[@trackurl LinkID='' LinkName='pmgdivinerosepalette' LinkTag='pl-p7' LinkDesc='' Tracked='ON' Encode='OFF' LinkType='REDIRECT']https://www.sephora.com/product/P458276?skuId=2351542&$deep_link=true[/@trackurl]" target="_blank">`}
+          />
+        </div>
       </div>
     );
   }
 }
-
-{ /* return (
-<>
-<div dangerouslySetInnerHTML={{ __html: productsHtml }} />
-<textarea>{productsHtml.replace(/\n\s+\n/g, '\n')}</textarea>
-</>
-); */ }
 
 export default App;

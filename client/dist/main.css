@@ -295,12 +295,17 @@ button, #submit {
   outline-color: #3d3a3a;
 }
 
+button {
+  margin-right: 10px;
+}
+
 /* Style the tab */
 #codeWindow {
-  /* border: 1px solid #595959; */
   margin-top: 20px;
-  /* width: 654px;
-  height: 270px; */
+}
+
+h1 {
+  text-align: center;
 }
 
 .tab {
@@ -318,20 +323,11 @@ button, #submit {
 }
 
 /* Style the tab content */
-.tabcontent {
-  display: none;
-}
-
 #new,
 #showTags {
   margin-bottom: 10px;
 }
 
-#typeOfGrid label,
-#checkboxes label {
-  margin-left: 10px;
-}
-/* 
 input[type='radio']:after,
 input[type='radio']:checked:after {
   top: -2px;
@@ -342,9 +338,9 @@ input[type='checkbox']:after,
 input[type='checkbox']:checked:after {
   top: -3px;
   left: -2px;
-} */
+}
 
-/* input[type='radio']:after,
+input[type='radio']:after,
 input[type='radio']:checked:after,
 input[type='checkbox']:after,
 input[type='checkbox']:checked:after {
@@ -367,4 +363,4 @@ input[type='checkbox']:checked:after {
 input[type='radio']:after,
 input[type='checkbox']:after {
   background-color:#fff;
-} */
+}

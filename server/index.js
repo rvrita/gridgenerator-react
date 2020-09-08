@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const cors = require('cors');
 const request = require('request');
 const path = require('path');
@@ -12,6 +13,7 @@ app.get('/skus/:sku', (req, res) => {
   const url = `https://www.sephora.com/${path.join('api/catalog/skus', req.params.sku)}`;
   request(url, (error, response, body) => {
     if (!error && response.statusCode === 200) {
+      res.setHeader('Set-Cookie', 'HttpOnly;Secure;SameSite=Strict');
       res.send(body);
     } else {
       res.status(500).send(error);
