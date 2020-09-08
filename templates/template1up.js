@@ -4,12 +4,12 @@ export default function template1up(products, showTags, showBrand) {
     <tr>
       <td style="padding-top: 50px;">
         <table width="500" border="0" cellspacing="0" cellpadding="0" align="center">
-    ${products.map((p) => (`
+  ${products.map((p) => (`
           <!-- next pick -->
           <tr>
             <td align="center">
               ${p.imageLink}
-                <img alt="${p.productName}" border="0" height="450" src="https://www.sephora.com/sku/pbimage/${p.skuId}?imwidth=450" style="display:block; margin: 10px 0;" width="450">
+                <img alt="${p.productName}" border="0" height="450" src="https://www.sephora.com/sku/pbimage/${p.skuId}?${p.badge.value}imwidth=450" style="display:block; margin: 10px 0;" width="450">
               </a>
             </td>
           </tr>

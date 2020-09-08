@@ -308,6 +308,10 @@ h1 {
   text-align: center;
 }
 
+/* h3 {
+  line-height: 1.5em;
+} */
+
 .tab {
   overflow: hidden;
 }
@@ -326,6 +330,44 @@ h1 {
 #new,
 #showTags {
   margin-bottom: 10px;
+}
+
+h3 {
+  margin-top: 0;
+}
+
+label {
+  margin-right: 25px;
+}
+
+#checkboxes,
+#badges,
+#typeOfGrid {
+  background-color: rgb(231, 231, 231);
+  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+#badges ul {
+  margin: 0;
+  padding: 0;
+}
+
+#badges li {
+  margin-bottom: 10px;
+  list-style-type: none;
+  display: inline-block;
+}
+
+#badges input[type='radio']:after,
+#badges input[type='radio']:checked:after {
+  top: -2px;
+  left: -4px;
+}
+
+#codeWindow h2 {
+  margin: 50px 0 25px;
 }
 
 input[type='radio']:after,

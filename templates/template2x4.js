@@ -14,7 +14,7 @@ export default function template2x4(products, showTags, showBrand) {
               <tr>
                 <td valign="top">
                   ${p.imageLink}
-                    <img alt="${p.productName}" border="0" height="280" src="https://www.sephora.com/productimages/sku/s${p.skuId}-main-hero.jpg?imwidth=450" style="display:block; margin: 10px 0;" width="280"/>
+                    <img alt="${p.productName}" border="0" height="280" src="https://www.sephora.com/productimages/sku/s${p.skuId}-main-hero.jpg?${p.badge.value}imwidth=450" style="display:block; margin: 10px 0;" width="280"/>
                   </a>
                 </td>
               </tr>
@@ -41,7 +41,7 @@ export default function template2x4(products, showTags, showBrand) {
               <tr>
                 <td valign="top">
                   ${p.imageLink}
-                    <img alt="${p.productName}" border="0" height="280" src="https://www.sephora.com/productimages/sku/s${p.skuId}-main-hero.jpg?imwidth=450" style="display:block; margin: 10px 0;" width="280"/>
+                    <img alt="${p.productName}" border="0" height="280" src="https://www.sephora.com/productimages/sku/s${p.skuId}-main-hero.jpg?${p.badge.value}imwidth=450" style="display:block; margin: 10px 0;" width="280"/>
                   </a>
                 </td>
               </tr>
