@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 
   // sending get request to proxy
-  getData(sku, obj) {
+  getData(sku, skuToLinkMap) {
     return fetch(`/skus/${sku}`)
       .then((response) => response.json())
       // .then(data => { console.log(data); return data; })
@@ -51,8 +51,8 @@ class App extends React.Component {
           price,
           valuePrice: data.valuePrice ? `${data.valuePrice.split('.')[0]} value)` : '',
           rating: data.primaryProduct.rating,
-          imageLink: obj[data.skuId],
-          textLink: obj[data.skuId].replace('>', ' style="text-decoration:none;color:#000000;">'),
+          imageLink: skuToLinkMap[data.skuId],
+          textLink: skuToLinkMap[data.skuId].replace('>', ' style="text-decoration:none;color:#000000;">'),
         };
         return item;
       })
@@ -65,8 +65,8 @@ class App extends React.Component {
           price: '$00',
           valuePrice: '',
           rating: 0,
-          imageLink: obj[sku],
-          textLink: obj[sku].replace('>', ' style="text-decoration:none;color:#000000;">'),
+          imageLink: skuToLinkMap[sku],
+          textLink: skuToLinkMap[sku].replace('>', ' style="text-decoration:none;color:#000000;">'),
         };
         return item;
       });
@@ -117,9 +117,12 @@ class App extends React.Component {
     const {
       products, textareaValue, gridtype, showTags, showBrand, activeTab,
     } = this.state;
-    const productsHtml = products.length > 0
-      ? template1up(products, true, false).replace(/\n\s+\n/g, '\n')
-      : '';
+    let productsHtml = '';
+    if (products.length > 0 && gridtype === 'oneUp') {
+      productsHtml = template1up(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+    } else if (products.length > 0 && gridtype === 'twoByFour') {
+      productsHtml = template2x4(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+    }
     return (
       <div>
         <h1>Sephora Email Grid Generator</h1>
