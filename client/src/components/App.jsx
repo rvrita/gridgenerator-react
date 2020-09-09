@@ -28,7 +28,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       textareaValue: '',
-      gridtype: 'twoByFour',
+      gridType: 'twobyfour',
       showTags: true,
       showBrand: true,
       products: [],
@@ -149,12 +149,12 @@ class App extends React.Component {
 
   render() {
     const {
-      products, textareaValue, gridtype, showTags, showBrand, activeTab,
+      products, textareaValue, gridType, showTags, showBrand, activeTab,
     } = this.state;
     let productsHtml = '';
-    if (products.length > 0 && gridtype === 'oneUp') {
+    if (products.length > 0 && gridType === 'oneup') {
       productsHtml = template1up(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
-    } else if (products.length > 0 && gridtype === 'twoByFour') {
+    } else if (products.length > 0 && gridType === 'twobyfour') {
       productsHtml = template2x4(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
     }
     return (
@@ -180,35 +180,35 @@ class App extends React.Component {
         <br />
         <br />
         <h2>Step 2: Choose your preferences</h2>
-        <div id="typeOfGrid">
+        <div id="typeofgrid">
           <h3>Type of the grid:</h3>
-          <label htmlFor="oneUp">
+          <label htmlFor="oneup">
             1up grid
             {' '}
-            <input type="radio" id="oneUp" name="gridtype" value="oneUp" onChange={this.handleInputChange} checked={gridtype === 'oneUp'} />
+            <input type="radio" id="oneup" name="gridType" value="oneup" onChange={this.handleInputChange} checked={gridType === 'oneup'} />
           </label>
-          <label htmlFor="twoByFour">
+          <label htmlFor="twobyfour">
             2x4 grid
             {' '}
-            <input type="radio" id="twoByFour" name="gridtype" value="twoByFour" onChange={this.handleInputChange} checked={gridtype === 'twoByFour'} />
+            <input type="radio" id="twobyfour" name="gridType" value="twobyfour" onChange={this.handleInputChange} checked={gridType === 'twobyfour'} />
           </label>
         </div>
         <div id="checkboxes">
-          <h3>Info</h3>
-          <label htmlFor="showTags">
+          <h3>Info:</h3>
+          <label htmlFor="showtags">
             Show tags
             {' '}
-            <input type="checkbox" id="showTags" name="showTags" checked={showTags} onChange={this.handleInputChange} />
+            <input type="checkbox" id="showtags" name="showtags" checked={showTags} onChange={this.handleInputChange} />
           </label>
-          <label htmlFor="showBrand">
+          <label htmlFor="showbrand">
             Include Brand Name
             {' '}
-            <input type="checkbox" id="showBrand" name="showBrand" checked={showBrand} onChange={this.handleInputChange} />
+            <input type="checkbox" id="showbrand" name="showbrand" checked={showBrand} onChange={this.handleInputChange} />
           </label>
         </div>
         <div id="badges">
-          <h3>Badges</h3>
-          <ul id="badgesList">
+          <h3>Badges:</h3>
+          <ul>
             {products.map((product, index) => {
               const name = `product${index}badge`;
               return (
@@ -235,20 +235,20 @@ class App extends React.Component {
           </ul>
         </div>
 
-        <div id="codeWindow">
+        <div id="codewindow">
           <h2>Step 3: Get your code</h2>
           <div className="tab">
-            <button type="button" className="tablinks" value="codeview" onClick={this.handleTabClick}>Generated Code</button>
-            <button type="button" className="tablinks" value="preview" onClick={this.handleTabClick}>Preview</button>
+            <button type="button" value="codeview" onClick={this.handleTabClick}>Generated Code</button>
+            <button type="button" value="preview" onClick={this.handleTabClick}>Preview</button>
           </div>
           <br />
           {activeTab === 'codeview'
-            && <textarea id="codeview" className="tabcontent" rows="20" cols="86" value={productsHtml} readOnly />}
+            && <textarea id="codeview" rows="20" cols="86" value={productsHtml} readOnly />}
           {activeTab === 'preview'
-            && <div id="preview" className="tabcontent" dangerouslySetInnerHTML={{ __html: productsHtml }} />}
+            && <div id="preview" dangerouslySetInnerHTML={{ __html: productsHtml }} />}
         </div>
 
-        <div>
+        <div id="examples">
           <h3>Example links:</h3>
           <textarea
             id="links"

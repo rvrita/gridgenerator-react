@@ -308,10 +308,6 @@ h1 {
   text-align: center;
 }
 
-/* h3 {
-  line-height: 1.5em;
-} */
-
 .tab {
   overflow: hidden;
 }
@@ -328,7 +324,7 @@ h1 {
 
 /* Style the tab content */
 #new,
-#showTags {
+#showtags {
   margin-bottom: 10px;
 }
 
@@ -342,7 +338,7 @@ label {
 
 #checkboxes,
 #badges,
-#typeOfGrid {
+#typeofgrid {
   background-color: rgb(231, 231, 231);
   border-radius: 5px;
   padding: 12px;
@@ -366,8 +362,12 @@ label {
   left: -4px;
 }
 
-#codeWindow h2 {
-  margin: 50px 0 25px;
+#codewindow h2 {
+  margin: 60px 0 25px;
+}
+
+#examples {
+  margin: 60px 0;
 }
 
 input[type='radio']:after,
