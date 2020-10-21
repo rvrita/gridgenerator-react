@@ -14,11 +14,17 @@ export default function template1up(products, showTags, showBrand) {
             </td>
           </tr>
           <tr>
-            <td align="center" style="line-height:25px;padding-bottom:25px;padding-top:25px;font-family:Helvetica, Arial, sans-serif; font-size:20px;">
+            <td align="center" style="line-height:25px;padding-bottom:10px;padding-top:25px;font-family:Helvetica, Arial, sans-serif; font-size:20px;">
             ${p.textLink}
                 ${(showTags && p.tags) ? `
-                <span style="color:#C0143C; letter-spacing:0.1em;line-height:45px;"><b>${p.tags}</b></span><br/>
+                <span style="color:#C0143C;letter-spacing:0.1em;line-height:25px;"><b>${p.tags}</b></span>
                 ` : ''}
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="line-height:25px;padding-bottom:25px;font-family:Helvetica, Arial, sans-serif; font-size:20px;">
+            ${p.textLink}
                 <span style="letter-spacing:0.01em; color:#000000;">
                 ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${p.price} ${p.valuePrice || ''}
                 </span>

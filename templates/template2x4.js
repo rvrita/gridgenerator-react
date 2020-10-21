@@ -53,7 +53,7 @@ export default function template2x4(products, showTags, showBrand) {
                   <span style="color:#C0143C; letter-spacing:0.1em;line-height:25px;"><b>${p.tags}</b></span><br/>
                   <span style="line-height:20px;"><b>&nbsp;</b></span><br/>
                   ` : `
-                  <span style="line-height:4 calc5px;"><b>&nbsp;</b></span><br/>
+                  <span style="line-height:45px;"><b>&nbsp;</b></span><br/>
                   `}
                   <span style="letter-spacing:0.01em; color:#000000;">
                   ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${p.price} ${p.valuePrice || ''}

@@ -52,16 +52,20 @@ class App extends React.Component {
         } else {
           price = data.listPrice.split('.')[0];
         }
-        let tags = '';
+        let tags = [];
         if (data.isNew) {
-          tags += 'NEW.';
-        } else if (data.isSephoraExclusive) {
-          tags += ' EXCLUSIVE.';
-        } else if (data.isLimitedEdition) {
-          tags += ' LIMITED EDITION.';
-        } else if (data.isOnlineOnly) {
-          tags += ' ONLINE ONLY.';
+          tags.push('NEW.');
         }
+        if (data.isSephoraExclusive) {
+          tags.push('EXCLUSIVE.');
+        }
+        if (data.isLimitedEdition) {
+          tags.push('LIMITED EDITION.');
+        }
+        if (data.isOnlineOnly) {
+          tags.push('ONLINE ONLY.');
+        }
+        tags = tags.join(' ');
         const item = {
           skuId: data.skuId,
           brandName: data.primaryProduct.brand.displayName.toUpperCase(),
@@ -195,15 +199,15 @@ class App extends React.Component {
         </div>
         <div id="checkboxes">
           <h3>Info:</h3>
-          <label htmlFor="showtags">
+          <label htmlFor="showTags">
             Show tags
             {' '}
-            <input type="checkbox" id="showtags" name="showtags" checked={showTags} onChange={this.handleInputChange} />
+            <input type="checkbox" id="showTags" name="showTags" checked={showTags} onChange={this.handleInputChange} />
           </label>
-          <label htmlFor="showbrand">
+          <label htmlFor="showBrand">
             Include Brand Name
             {' '}
-            <input type="checkbox" id="showbrand" name="showbrand" checked={showBrand} onChange={this.handleInputChange} />
+            <input type="checkbox" id="showBrand" name="showBrand" checked={showBrand} onChange={this.handleInputChange} />
           </label>
         </div>
         <div id="badges">
@@ -212,13 +216,13 @@ class App extends React.Component {
             {products.map((product, index) => {
               const name = `product${index}badge`;
               return (
-                <>
-                  <li>{product.brandName}</li>
+                <React.Fragment key={product.skuId}>
+                  <li key={product.skuId}>{product.brandName}</li>
                   <ul>
                     {badges.map((badge, badgeIdx) => {
                       const id = `product${index}badge${badgeIdx}`;
                       return (
-                        <li>
+                        <li key={product.skuId + badge.name}>
                           <label htmlFor={id}>
                             <input type="radio" id={id} name={name} checked={product.badge === badge} onChange={() => this.setBadge(index, badge)} />
                             {' '}
@@ -228,7 +232,7 @@ class App extends React.Component {
                       );
                     })}
                   </ul>
-                </>
+                </React.Fragment>
               );
             })}
 
@@ -245,6 +249,7 @@ class App extends React.Component {
           {activeTab === 'codeview'
             && <textarea id="codeview" rows="20" cols="86" value={productsHtml} readOnly />}
           {activeTab === 'preview'
+            // eslint-disable-next-line react/no-danger
             && <div id="preview" dangerouslySetInnerHTML={{ __html: productsHtml }} />}
         </div>
 
