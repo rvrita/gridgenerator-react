@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable prefer-destructuring */
 import React from 'react';
 import template1up from '../../../templates/template1up';
 import template2x4 from '../../../templates/template2x4';
+import template2x4new from '../../../templates/template2x4-new';
 
 const badges = [
   {
@@ -52,20 +55,19 @@ class App extends React.Component {
         } else {
           price = data.listPrice.split('.')[0];
         }
-        let tags = [];
+        const tags = [];
         if (data.isNew) {
-          tags.push('NEW.');
+          tags.push('NEW');
         }
         if (data.isSephoraExclusive) {
-          tags.push('EXCLUSIVE.');
+          tags.push('EXCLUSIVE');
         }
         if (data.isLimitedEdition) {
-          tags.push('LIMITED EDITION.');
+          tags.push('LIMITED<span>&nbsp;</span>EDITION');
         }
         if (data.isOnlineOnly) {
-          tags.push('ONLINE ONLY.');
+          tags.push('ONLINE<span>&nbsp;</span>xONLY');
         }
-        tags = tags.join(' ');
         const item = {
           skuId: data.skuId,
           brandName: data.primaryProduct.brand.displayName.toUpperCase(),
@@ -85,7 +87,7 @@ class App extends React.Component {
           skuId: sku,
           brandName: 'PLACEHOLDER BRAND NAME',
           productName: 'Placeholder product name',
-          tags: 'PLACEHOLDER TAGS',
+          tags: ['PLACEHOLDER TAG'],
           price: '$00',
           valuePrice: '',
           rating: 0,
@@ -160,6 +162,8 @@ class App extends React.Component {
       productsHtml = template1up(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
     } else if (products.length > 0 && gridType === 'twobyfour') {
       productsHtml = template2x4(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+    } else if (products.length > 0 && gridType === 'twobyfournew') {
+      productsHtml = template2x4new(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
     }
     return (
       <div>
@@ -195,6 +199,11 @@ class App extends React.Component {
             2x4 grid
             {' '}
             <input type="radio" id="twobyfour" name="gridType" value="twobyfour" onChange={this.handleInputChange} checked={gridType === 'twobyfour'} />
+          </label>
+          <label htmlFor="twobyfournew">
+            2x4 NEW! grid
+            {' '}
+            <input type="radio" id="twobyfournew" name="gridType" value="twobyfournew" onChange={this.handleInputChange} checked={gridType === 'twobyfournew'} />
           </label>
         </div>
         <div id="checkboxes">

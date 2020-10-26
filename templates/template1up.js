@@ -4,7 +4,9 @@ export default function template1up(products, showTags, showBrand) {
     <tr>
       <td style="padding-top: 50px;">
         <table width="500" border="0" cellspacing="0" cellpadding="0" align="center">
-  ${products.map((p) => (`
+  ${products.map((p) => {
+    const tags = p.tags.map((tag) => `${tag}.`).join(' ');
+    return `
           <!-- next pick -->
           <tr>
             <td align="center">
@@ -17,7 +19,7 @@ export default function template1up(products, showTags, showBrand) {
             <td align="center" style="line-height:25px;padding-bottom:10px;padding-top:25px;font-family:Helvetica, Arial, sans-serif; font-size:20px;">
             ${p.textLink}
                 ${(showTags && p.tags) ? `
-                <span style="color:#C0143C;letter-spacing:0.1em;line-height:25px;"><b>${p.tags}</b></span>
+                <span style="color:#C0143C;letter-spacing:0.1em;line-height:25px;"><b>${tags}</b></span>
                 ` : ''}
               </a>
             </td>
@@ -30,7 +32,8 @@ export default function template1up(products, showTags, showBrand) {
                 </span>
               </a>
             </td>
-          </tr>`)).join('')}
+          </tr>`;
+  }).join('')}
         </table>
       </td>
     </tr>
