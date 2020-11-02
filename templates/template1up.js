@@ -11,7 +11,7 @@ export default function template1up(products, showTags, showBrand) {
           <tr>
             <td align="center">
               ${p.imageLink}
-                <img alt="${p.productName}" border="0" height="450" src="https://www.sephora.com/sku/pbimage/${p.skuId}?${p.badge.value}imwidth=450" style="display:block; margin: 10px 0;" width="450">
+                <img alt="${p.productName}" border="0" height="450" src="https://www.sephora.com/productimages/sku/s${p.skuId}-main-hero.jpg?${p.badge.value}imwidth=450" style="display:block; margin: 10px 0;" width="450">
               </a>
             </td>
           </tr>
