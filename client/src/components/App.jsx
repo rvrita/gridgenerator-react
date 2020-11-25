@@ -4,8 +4,10 @@
 /* eslint-disable prefer-destructuring */
 import React from 'react';
 import template1up from '../../../templates/template1up';
+import template1upnew from '../../../templates/template1up-new';
 import template2x4 from '../../../templates/template2x4';
 import template2x4new from '../../../templates/template2x4-new';
+// import templateC2x4 from '../../../templates/templateC2x4';
 
 const badges = [
   {
@@ -79,6 +81,7 @@ class App extends React.Component {
           imageLink: skuToLinkMap[data.skuId],
           textLink: skuToLinkMap[data.skuId].replace('>', ' style="text-decoration:none;color:#000000;">'),
           badge: badges[0],
+          salePrice: data.salePrice ? data.salePrice.split('.')[0] : '',
         };
         return item;
       })
@@ -94,6 +97,7 @@ class App extends React.Component {
           imageLink: skuToLinkMap[sku],
           textLink: skuToLinkMap[sku].replace('>', ' style="text-decoration:none;color:#000000;">'),
           badge: badges[0],
+          salePrice: '',
         };
         return item;
       });
@@ -162,6 +166,8 @@ class App extends React.Component {
     let productsHtml = '';
     if (products.length > 0 && gridType === 'oneup') {
       productsHtml = template1up(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+    } else if (products.length > 0 && gridType === 'oneupnew') {
+      productsHtml = template1upnew(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
     } else if (products.length > 0 && gridType === 'twobyfour') {
       productsHtml = template2x4(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
     } else if (products.length > 0 && gridType === 'twobyfournew') {
@@ -204,6 +210,15 @@ class App extends React.Component {
               1up grid
               {' '}
               <input type="radio" id="oneup" name="gridType" value="oneup" onChange={this.handleInputChange} checked={gridType === 'oneup'} />
+            </label>
+            <label htmlFor="oneupnew">
+              1up
+              {' '}
+              <span className="newtag">NEW</span>
+              {' '}
+              grid
+              {' '}
+              <input type="radio" id="oneupnew" name="gridType" value="oneupnew" onChange={this.handleInputChange} checked={gridType === 'oneupnew'} />
             </label>
             <label htmlFor="twobyfour">
               2x4 grid
