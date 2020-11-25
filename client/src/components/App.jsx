@@ -7,7 +7,8 @@ import template1up from '../../../templates/template1up';
 import template1upnew from '../../../templates/template1up-new';
 import template2x4 from '../../../templates/template2x4';
 import template2x4new from '../../../templates/template2x4-new';
-// import templateC2x4 from '../../../templates/templateC2x4';
+import templatec2x4 from '../../../templates/templateC2x4';
+import templatec3x1 from '../../../templates/templateC3x1';
 
 const badges = [
   {
@@ -38,6 +39,7 @@ class App extends React.Component {
       showBrand: true,
       products: [],
       activeTab: 'codeview',
+      certonaTag: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -161,7 +163,7 @@ class App extends React.Component {
 
   render() {
     const {
-      products, textareaValue, gridType, showTags, showBrand, activeTab,
+      products, textareaValue, gridType, showTags, showBrand, activeTab, certonaTag,
     } = this.state;
     let productsHtml = '';
     if (products.length > 0 && gridType === 'oneup') {
@@ -172,6 +174,10 @@ class App extends React.Component {
       productsHtml = template2x4(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
     } else if (products.length > 0 && gridType === 'twobyfournew') {
       productsHtml = template2x4new(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+    } else if (gridType === 'ctwobyfour') {
+      productsHtml = templatec2x4(certonaTag).replace(/\n\s+\n/g, '\n');
+    } else if (gridType === 'cthreebyone') {
+      productsHtml = templatec3x1(certonaTag).replace(/\n\s+\n/g, '\n');
     }
     return (
       <div>
@@ -234,48 +240,74 @@ class App extends React.Component {
               {' '}
               <input type="radio" id="twobyfournew" name="gridType" value="twobyfournew" onChange={this.handleInputChange} checked={gridType === 'twobyfournew'} />
             </label>
-          </div>
-          <div id="checkboxes">
-            <h3>Info</h3>
-            <label htmlFor="showTags">
-              Show tags
+            <br />
+            <br />
+            <label htmlFor="ctwobyfour">
+              Certona 2x4 grid
               {' '}
-              <input type="checkbox" id="showTags" name="showTags" checked={showTags} onChange={this.handleInputChange} />
+              <input type="radio" id="ctwobyfour" name="gridType" value="ctwobyfour" onChange={this.handleInputChange} checked={gridType === 'ctwobyfour'} />
             </label>
-            <label htmlFor="showBrand">
-              Include Brand Name
+            <label htmlFor="cthreebyone">
+              Certona 3x1 grid
               {' '}
-              <input type="checkbox" id="showBrand" name="showBrand" checked={showBrand} onChange={this.handleInputChange} />
+              <input type="radio" id="cthreebyone" name="gridType" value="cthreebyone" onChange={this.handleInputChange} checked={gridType === 'cthreebyone'} />
             </label>
           </div>
-          <div id="badges">
-            <h3>Badges</h3>
-            <ul>
-              {products.map((product, index) => {
-                const name = `product${index}badge`;
-                return (
-                  <React.Fragment key={product.skuId}>
-                    <li key={product.skuId}>{product.brandName}</li>
-                    <ul>
-                      {badges.map((badge, badgeIdx) => {
-                        const id = `product${index}badge${badgeIdx}`;
-                        return (
-                          <li key={product.skuId + badge.name}>
-                            <label htmlFor={id}>
-                              <input type="radio" id={id} name={name} checked={product.badge === badge} onChange={() => this.setBadge(index, badge)} />
-                              {' '}
-                              {badge.name}
-                            </label>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </React.Fragment>
-                );
-              })}
+          {gridType === 'ctwobyfour' || gridType === 'cthreebyone'
+            ? (
+              <div id="tagname">
+                <label htmlFor="certonatag">
+                  Tag name:
+                  {' '}
+                  <input type="text" id="certonatag" name="certonaTag" value={certonaTag} onChange={this.handleInputChange} />
+                </label>
+              </div>
+            )
+            : (
+              <div>
+                <div id="checkboxes">
+                  <h3>Info</h3>
+                  <label htmlFor="showTags">
+                    Show tags
+                    {' '}
+                    <input type="checkbox" id="showTags" name="showTags" checked={showTags} onChange={this.handleInputChange} />
+                  </label>
+                  <label htmlFor="showBrand">
+                    Include Brand Name
+                    {' '}
+                    <input type="checkbox" id="showBrand" name="showBrand" checked={showBrand} onChange={this.handleInputChange} />
+                  </label>
+                </div>
+                <div id="badges">
+                  <h3>Badges</h3>
+                  <ul>
+                    {products.map((product, index) => {
+                      const name = `product${index}badge`;
+                      return (
+                        <React.Fragment key={product.skuId}>
+                          <li key={product.skuId}>{product.brandName}</li>
+                          <ul>
+                            {badges.map((badge, badgeIdx) => {
+                              const id = `product${index}badge${badgeIdx}`;
+                              return (
+                                <li key={product.skuId + badge.name}>
+                                  <label htmlFor={id}>
+                                    <input type="radio" id={id} name={name} checked={product.badge === badge} onChange={() => this.setBadge(index, badge)} />
+                                    {' '}
+                                    {badge.name}
+                                  </label>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </React.Fragment>
+                      );
+                    })}
 
-            </ul>
-          </div>
+                  </ul>
+                </div>
+              </div>
+            )}
           <br />
           <h2>Step 3: Get your code</h2>
           <br />
