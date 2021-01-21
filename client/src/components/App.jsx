@@ -40,6 +40,7 @@ class App extends React.Component {
       products: [],
       activeTab: 'codeview',
       certonaTag: '',
+      showKlarna: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -163,7 +164,7 @@ class App extends React.Component {
 
   render() {
     const {
-      products, textareaValue, gridType, showTags, showBrand, activeTab, certonaTag,
+      products, textareaValue, gridType, showTags, showBrand, activeTab, certonaTag, showKlarna,
     } = this.state;
     let productsHtml = '';
     if (products.length > 0 && gridType === 'oneup') {
@@ -173,7 +174,7 @@ class App extends React.Component {
     } else if (products.length > 0 && gridType === 'twobyfour') {
       productsHtml = template2x4(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
     } else if (products.length > 0 && gridType === 'twobyfournew') {
-      productsHtml = template2x4new(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+      productsHtml = template2x4new(products, showTags, showBrand, showKlarna).replace(/\n\s+\n/g, '\n');
     } else if (gridType === 'ctwobyfour') {
       productsHtml = templatec2x4(certonaTag).replace(/\n\s+\n/g, '\n');
     } else if (gridType === 'cthreebyone') {
@@ -268,7 +269,7 @@ class App extends React.Component {
                 <div id="checkboxes">
                   <h3>Info</h3>
                   <label htmlFor="showTags">
-                    Show tags
+                    Show Tags
                     {' '}
                     <input type="checkbox" id="showTags" name="showTags" checked={showTags} onChange={this.handleInputChange} />
                   </label>
@@ -276,6 +277,11 @@ class App extends React.Component {
                     Include Brand Name
                     {' '}
                     <input type="checkbox" id="showBrand" name="showBrand" checked={showBrand} onChange={this.handleInputChange} />
+                  </label>
+                  <label htmlFor="showKlarna">
+                    Include Klarna Price
+                    {' '}
+                    <input type="checkbox" id="showKlarna" name="showKlarna" checked={showKlarna} onChange={this.handleInputChange} />
                   </label>
                 </div>
                 <div id="badges">
