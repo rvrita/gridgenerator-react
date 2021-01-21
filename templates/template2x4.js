@@ -29,7 +29,7 @@ export default function template2x4(products, showTags, showBrand) {
                     <span style="line-height:45px;"><b>&nbsp;</b></span><br/>
                     `}
                     <span style="letter-spacing:0.01em; color:#000000;">
-                    ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${p.price} ${p.valuePrice || ''}
+                    ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${(p.salePrice) ? `<s>${p.price}</s> <span style="color:red">${p.salePrice}</span>` : p.price} ${p.valuePrice || ''}
                   </span>
                   </a>
                 </td>
@@ -57,7 +57,7 @@ export default function template2x4(products, showTags, showBrand) {
                   <span style="line-height:45px;"><b>&nbsp;</b></span><br/>
                   `}
                   <span style="letter-spacing:0.01em; color:#000000;">
-                  ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${p.price} ${p.valuePrice || ''}
+                  ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${(p.salePrice) ? `<s>${p.price}</s> <span style="color:red">${p.salePrice}</span>` : p.price} ${p.valuePrice || ''}
                   </span>
                   </a>
                 </td>
