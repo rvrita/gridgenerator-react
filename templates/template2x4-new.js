@@ -10,7 +10,7 @@ export default function template2x4(products, showTags, showBrand, showKlarna) {
     if (index % 2 === 0) {
       return `
         <tr>
-          <td valign="top">
+          <td valign="top" align="center">
             <table width="280" border="0" cellspacing="0" cellpadding="0" align="center">
               <tr>
                 <td valign="top">
@@ -39,7 +39,7 @@ export default function template2x4(products, showTags, showBrand, showKlarna) {
           </td>`;
     } else {
       return `
-          <td valign="top">
+          <td valign="top" align="center">
             <table width="280" border="0" cellspacing="0" cellpadding="0" align="center">
               <tr>
                 <td valign="top">
