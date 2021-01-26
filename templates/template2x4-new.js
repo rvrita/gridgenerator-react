@@ -7,6 +7,8 @@ export default function template2x4(products, showTags, showBrand, showKlarna) {
         <table width="700" border="0" cellspacing="0" cellpadding="0" align="center">
   ${products.map((p, index) => {
     const tags = p.tags.join('&nbsp;· ');
+    const price = parseInt(p.price.slice(1), 10);
+    const klarna = price % 4 === 0 ? price / 4 : (price / 4).toFixed(2);
     if (index % 2 === 0) {
       return `
         <tr>
@@ -29,7 +31,7 @@ export default function template2x4(products, showTags, showBrand, showKlarna) {
                     ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${(p.salePrice) ? `<s>${p.price}</s> <span style="color:red">${p.salePrice}</span>` : p.price} ${p.valuePrice || ''}
                   </span>
                   ${showKlarna ? `
-                    <span style="letter-spacing:0.01em; color:gray;"><br />Or pay in 4 interest-free payments of $${parseInt(p.price.slice(1), 10) / 4}</span><br />
+                    <span style="letter-spacing:0.01em; color:gray;"><br />Or pay in 4 interest-free payments of $${klarna}</span><br />
                     <img src="http://images.harmony.epsilon.com/ContentHandler/images?id=b3a569f1-ea8d-43e6-a583-58ce3044fb98" width="280" height="30" border="0" style="display:block;">
                     ` : ''}
                   </a>
