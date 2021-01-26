@@ -168,11 +168,11 @@ class App extends React.Component {
     } = this.state;
     let productsHtml = '';
     if (products.length > 0 && gridType === 'oneup') {
-      productsHtml = template1up(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+      productsHtml = template1up(products, showTags, showBrand, showKlarna).replace(/\n\s+\n/g, '\n');
     } else if (products.length > 0 && gridType === 'oneupnew') {
-      productsHtml = template1upnew(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+      productsHtml = template1upnew(products, showTags, showBrand, showKlarna).replace(/\n\s+\n/g, '\n');
     } else if (products.length > 0 && gridType === 'twobyfour') {
-      productsHtml = template2x4(products, showTags, showBrand).replace(/\n\s+\n/g, '\n');
+      productsHtml = template2x4(products, showTags, showBrand, showKlarna).replace(/\n\s+\n/g, '\n');
     } else if (products.length > 0 && gridType === 'twobyfournew') {
       productsHtml = template2x4new(products, showTags, showBrand, showKlarna).replace(/\n\s+\n/g, '\n');
     } else if (gridType === 'ctwobyfour') {
