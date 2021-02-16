@@ -22,25 +22,33 @@ export default function template1up(products, showTags, showBrand, showKlarna) {
           <tr>
             <td align="center" style="line-height:25px;padding-bottom:10px;padding-top:10px;font-family:Helvetica, Arial, sans-serif; font-size:16px;">
             ${p.textLink}
-                ${(showTags && p.tags) ? `
+                ${(showTags && tags) ? `
                 <span style="color:#C0143C;letter-spacing:0.01em;line-height:25px;"><b>${tags}</b></span>
                 ` : ''}
               </a>
             </td>
           </tr>
           <tr>
-            <td align="center" style="line-height:25px;padding-bottom:25px;font-family:Helvetica, Arial, sans-serif; font-size:20px;">
+          ${showKlarna ? `
+            <td align="center" style="line-height:25px;font-family:Helvetica, Arial, sans-serif; font-size:20px;">` : `
+            <td align="center" style="line-height:25px;padding-bottom:25px;font-family:Helvetica, Arial, sans-serif; font-size:20px;">`}
             ${p.textLink}
                 <span style="letter-spacing:0.01em; color:#000000;">
                 ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${(p.salePrice) ? `<s>${p.price}</s> <span style="color:red">${p.salePrice}</span>` : p.price} ${p.valuePrice || ''}
                 </span>
             ${showKlarna ? `
                 <span style="letter-spacing:0.01em; color:gray;"><br />Or pay in 4 interest-free payments of $${klarna}</span><br />
-                <img src="http://images.harmony.epsilon.com/ContentHandler/images?id=8fb824b4-e467-4831-b531-1e37d63881fd" width="76" height="30" border="0" style="display:block;">
                 ` : ''}
               </a>
             </td>
-          </tr>`;
+          </tr>
+          ${showKlarna ? `
+          <tr>
+            <td align="center" style="padding-bottom:25px;">
+              <img src="http://images.harmony.epsilon.com/ContentHandler/images?id=8fb824b4-e467-4831-b531-1e37d63881fd" width="76" height="30" border="0" style="display:block;" alt="Klarna">
+            </td>
+          </tr>` : ''}
+          `;
   }).join('')}
         </table>
       </td>

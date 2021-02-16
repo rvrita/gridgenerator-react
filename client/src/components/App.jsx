@@ -34,7 +34,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       textareaValue: '',
-      gridType: 'twobyfour',
+      gridType: 'twobyfournew',
       showTags: true,
       showBrand: true,
       products: [],
@@ -65,7 +65,7 @@ class App extends React.Component {
           tags.push('NEW');
         }
         if (data.isSephoraExclusive) {
-          tags.push('EXCLUSIVE');
+          tags.push('ONLY<span>&nbsp;</span>AT<span>&nbsp;</span>SEPHORA');
         }
         if (data.isLimitedEdition) {
           tags.push('LIMITED<span>&nbsp;</span>EDITION');
