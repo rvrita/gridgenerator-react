@@ -1,4 +1,5 @@
 import displayKlarnaPrice from './snippets';
+import klarnaPayment from './templateKlarna';
 
 export default function template1up(products, showTags, showBrand, showKlarna) {
   return `<!-- grid gen -->
@@ -35,9 +36,7 @@ export default function template1up(products, showTags, showBrand, showKlarna) {
                 <span style="letter-spacing:0.01em; color:#000000;">
                 ${showBrand ? `<b>${p.brandName}</b><br/>` : ''}${p.productName}, ${(p.salePrice) ? `<s>${p.price}</s> <span style="color:red">${p.salePrice}</span>` : p.price} ${p.valuePrice || ''}
                 </span>
-                ${showKlarna ? `
-                <span style="letter-spacing:0.01em; color:gray;"><br />Or pay in 4 interest-free payments of $${klarna}</span><br />
-                ` : ''}
+                ${klarnaPayment(showKlarna, klarna)}
               </a>
             </td>
           </tr>
