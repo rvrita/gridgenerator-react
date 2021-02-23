@@ -5,7 +5,7 @@ export default function template1up(products, showTags, showBrand, showKlarna) {
   return `<!-- grid gen -->
   <table width="700" border="0" cellspacing="0" cellpadding="0" align="center">
     <tr>
-      <td style="padding-top: 50px;">
+      <td style="padding-top: 50px;" align="center">
         <table width="500" border="0" cellspacing="0" cellpadding="0" align="center">
   ${products.map((p) => {
     const tags = p.tags.join('&nbsp;· ');
