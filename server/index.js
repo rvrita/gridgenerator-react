@@ -27,10 +27,10 @@ app.get('/skus/:sku', (req, res) => {
   axios({
     url,
     timeout: 5000,
-    headers: {
-      // didn't work without user agent, but the name does not seem to matter
-      'User-Agent': 'curl',
-    },
+    // headers: {
+    //   // didn't work without user agent, but the name does not seem to matter
+    //   'User-Agent': 'curl',
+    // },
     responseType: 'stream',
   }).then((response) => {
     response.data.pipe(res);
